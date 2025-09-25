@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
     "lib": [
       "dom",
       "dom.iterable",
@@ -23,10 +24,20 @@
     ],
     "paths": {
       "@/*": [
-        "./*"
+        "./*",
+        "./templates/mobile/src/*",
+        "./templates/saas/src/*",
+        "./templates/startup/src/*"
+      ],
+      "@next-wp/content-schema": [
+        "./packages/content-schema/src/index.ts"
+      ],
+      "@next-wp/content-schema/*": [
+        "./packages/content-schema/src/*"
       ]
     },
-    "target": "ES2017"
+    "target": "ES2017",
+    "forceConsistentCasingInFileNames": true
   },
   "include": [
     "next-env.d.ts",

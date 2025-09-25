@@ -1,0 +1,30 @@
+{
+  "name": "@next-wp/content-schema",
+  "version": "0.1.0",
+  "description": "Shared content schema for WordPress visual editor and Next.js templates",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "clean": "rm -rf dist"
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "wordpress",
+    "nextjs",
+    "blocks",
+    "schema",
+    "cms"
+  ],
+  "author": "Next-WP Team",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "zod": "^3.22.0"
+  }
+}
