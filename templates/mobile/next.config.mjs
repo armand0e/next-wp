@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 import { URL } from 'node:url'
+import path from 'node:path'
 
 // Build WordPress image remote pattern from env when available
 const wpUrl = process.env.NEXT_PUBLIC_WORDPRESS_URL
@@ -24,6 +25,14 @@ const nextConfig = {
       ...wpRemotePattern,
     ],
     formats: ["image/avif", "image/webp"],
+  },
+  webpack: (config) => {
+    config.resolve = config.resolve || {}
+    config.resolve.alias = {
+      ...(config.resolve.alias || {}),
+      '@': path.resolve(__dirname, './src'),
+    }
+    return config
   },
 }
 

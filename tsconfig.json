@@ -24,7 +24,6 @@
     ],
     "paths": {
       "@/*": [
-        "./*",
         "./templates/mobile/src/*",
         "./templates/saas/src/*",
         "./templates/startup/src/*"
