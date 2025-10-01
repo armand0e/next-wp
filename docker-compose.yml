@@ -1,0 +1,117 @@
+version: "3.9"
+
+networks:
+  dokploy-network:
+    external: true
+
+volumes:
+  postgres_data:
+  minio_data:
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: payload
+      POSTGRES_USER: payload
+      POSTGRES_PASSWORD: payload
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - dokploy-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U payload"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # MinIO S3-compatible storage
+  minio:
+    image: minio/minio:latest
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    volumes:
+      - minio_data:/data
+    networks:
+      - dokploy-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+
+  # Payload CMS (Visual Editor)
+  payload-cms:
+    build:
+      context: .
+      dockerfile: cms/payload/Dockerfile
+    environment:
+      # Database
+      DATABASE_URL: postgres://payload:payload@postgres:5432/payload
+      
+      # Payload Config
+      PAYLOAD_SECRET: ${PAYLOAD_SECRET:-your-long-random-secret-here}
+      
+      # Storage (MinIO S3-compatible)
+      STORAGE_ENDPOINT: http://minio:9000
+      STORAGE_BUCKET: media
+      STORAGE_ACCESS_KEY: minioadmin
+      STORAGE_SECRET_KEY: minioadmin
+      
+      # Webhook to Next.js app
+      NEXT_APP_REVALIDATE_URL: http://mobile-template:3000/api/revalidate
+      PAYLOAD_WEBHOOK_SECRET: ${PAYLOAD_WEBHOOK_SECRET:-your-shared-webhook-secret}
+      
+      # App URLs
+      PAYLOAD_PUBLIC_SERVER_URL: ${PAYLOAD_PUBLIC_SERVER_URL:-http://localhost:3001}
+      NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL:-http://localhost:3000}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+    networks:
+      - dokploy-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Next.js Mobile Template
+  mobile-template:
+    build:
+      context: .
+      dockerfile: templates/mobile/Dockerfile
+    environment:
+      # CMS Configuration (Payload CMS)
+      NEXT_PUBLIC_CMS_URL: http://payload-cms:3001
+      NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL:-http://localhost:3000}
+      PAYLOAD_WEBHOOK_SECRET: ${PAYLOAD_WEBHOOK_SECRET:-your-shared-webhook-secret}
+    depends_on:
+      payload-cms:
+        condition: service_healthy
+    networks:
+      - dokploy-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # MinIO Console (Optional - for managing uploads)
+  minio-console:
+    image: minio/minio:latest
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    volumes:
+      - minio_data:/data
+    networks:
+      - dokploy-network
+    profiles:
+      - console

@@ -1,0 +1,27 @@
+{
+  "name": "next-wp-payload-cms",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx src/server.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/server.js"
+  },
+  "dependencies": {
+    "@payloadcms/db-postgres": "^0.8.6",
+    "@payloadcms/richtext-lexical": "^0.11.3",
+    "@payloadcms/storage-s3": "^0.2.4",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "payload": "^2.28.0",
+    "pg": "^8.11.5"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^20",
+    "@types/pg": "^8.11.6",
+    "tsx": "^4.7.1",
+    "typescript": "^5"
+  }
+}

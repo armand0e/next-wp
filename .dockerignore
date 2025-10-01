@@ -1,0 +1,28 @@
+# Global Docker ignore for monorepo
+.git
+.github
+.gitignore
+node_modules
+**/node_modules
+**/.next
+**/dist
+**/build
+**/.turbo
+**/.cache
+**/.vercel
+**/.netlify
+**/.pnpm-store
+**/.pnpm-store/**
+**/coverage
+**/*.log
+**/.DS_Store
+**/Thumbs.db
+
+# WordPress dev folders not needed for building Next.js templates
+wordpress/
+wordpress-plugin/
+
+# Local env files (set envs in Dokploy instead)
+.env
+**/.env
+**/.env.*

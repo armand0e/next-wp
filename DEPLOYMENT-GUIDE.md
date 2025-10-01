@@ -157,6 +157,39 @@ EXPOSE 3000
 CMD ["npm", "start"]
 ```
 
+## 🚢 Dokploy Deployment
+
+### 1. Build & Deploy via Docker Compose
+
+This repository includes a compose file for the mobile template at `templates/mobile/docker-compose.yml` and a `Dockerfile` tailored to the monorepo. Dokploy will build the image from the repository and run it in the `dokploy-network` without host port mapping.
+
+Steps:
+
+1. In Dokploy, create an Application via Git Provider and point it to this repository/branch.
+2. Set the Build Path to `templates/mobile`.
+3. Configure Environment Variables in Dokploy:
+   - `NEXT_PUBLIC_WORDPRESS_URL=https://your-wordpress-site.com`
+   - `NEXT_PUBLIC_APP_URL=https://mobile.yourdomain.com`
+   - `WORDPRESS_WEBHOOK_SECRET=your-secure-secret`
+4. In the Deploy tab, click Deploy.
+5. Generate a Domain in Dokploy for the service and set the internal port to `3000`.
+
+Notes:
+
+- The service listens on `0.0.0.0:3000` in the container.
+- The compose file attaches the service to the `dokploy-network` and does not expose host ports (recommended per Dokploy docs).
+- A health endpoint is available at `/api/health` for zero-downtime checks.
+
+### 2. Optional: Traefik Labels
+
+If you prefer managing domains via labels, see `templates/mobile/docker-compose.yml` commented labels for Traefik routing.
+
+### 3. Zero-Downtime Health Check
+
+Use Dokploy Swarm Settings healthcheck pointing to `http://localhost:3000/api/health`.
+
+---
+
 ## 🔄 Webhook Configuration
 
 ### 1. Test Webhook Connectivity
