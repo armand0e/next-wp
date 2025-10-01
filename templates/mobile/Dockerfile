@@ -11,7 +11,7 @@ COPY . .
 
 # Install and build only the mobile template
 WORKDIR /app/templates/mobile
-# Use npm since lockfile may not be present; keep it deterministic in CI with a lock if available
+# Use npm install to allow peer resolution and lockfile update inside container
 RUN npm install --no-audit --no-fund \
   && npm run build
 

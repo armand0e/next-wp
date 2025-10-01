@@ -18,6 +18,8 @@ const nextConfig = {
   images: {
     remotePatterns: [
       { protocol: 'http', hostname: "localhost" },
+      { protocol: 'http', hostname: "payload-cms" },
+      { protocol: 'http', hostname: "minio" },
       { protocol: 'https', hostname: "randomuser.me" },
       ...wpRemotePattern,
     ],

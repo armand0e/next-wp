@@ -19,6 +19,7 @@ RUN npm run build
 FROM node:20-alpine AS runner
 ENV NODE_ENV=production
 ENV PORT=3001
+ENV PAYLOAD_CONFIG_PATH=/app/dist/payload.config.js
 WORKDIR /app
 
 # Copy built application and dependencies
