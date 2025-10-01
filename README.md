@@ -1,16 +1,57 @@
-# Next.js Starter for WordPress Headless CMS
+# Next.js Visual Editor with Payload CMS
 
-> [Watch the Demo Video](https://www.youtube.com/watch?v=JZc1-BcOvYw)
->
-> [Need a headless theme? Use 761](https://github.com/9d8dev/761)
+**🎨 Wix-like visual editing** • **⚡ Next.js 15 performance** • **🔒 Self-hosted & free** • **🚀 One-click Dokploy deployment**
 
-![CleanShot 2025-01-07 at 23 18 41@2x](https://github.com/user-attachments/assets/8b268c36-eb0d-459f-b9f1-b5f129bd29bc)
+A complete visual editing system that rivals commercial platforms like Wix, Webflow, and Framer - but it's **100% open-source** and **completely yours**.
 
-[![Deploy with Vercel](https://vercel.com/button)](<https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2F9d8dev%2Fnext-wp&env=WORDPRESS_URL,WORDPRESS_HOSTNAME,WORDPRESS_WEBHOOK_SECRET&envDescription=Add%20WordPress%20URL%20with%20Rest%20API%20enabled%20(ie.%20https%3A%2F%2Fwp.example.com)%2C%20the%20hostname%20for%20Image%20rendering%20in%20Next%20JS%20(ie.%20wp.example.com)%2C%20and%20a%20secret%20key%20for%20secure%20revalidation&project-name=next-wp&repository-name=next-wp&demo-title=Next%20JS%20and%20WordPress%20Starter&demo-url=https%3A%2F%2Fwp.9d8.dev>)
+## ⚡ Quick Start
 
-This is a starter template for building a Next.js application that fetches data from a WordPress site using the WordPress REST API. The template includes functions for fetching posts, categories, tags, authors, and featured media from a WordPress site and rendering them in a Next.js application.
+Deploy in **5 minutes**:
 
-`next-wp` is built with [Next.js 15](https://nextjs.org/docs), [React](https://react.dev/), [Typescript](https://www.typescriptlang.org/docs/), [Tailwind](https://tailwindcss.com/), [shadcn/ui](https://ui.shadcn.com/docs), and [brijr/craft](https://github.com/brijr/craft). It pairs nicely with [brijr/components](https://components.bridger.to/) for a rapid development experience. Built by Cameron and Bridger at [9d8](https://9d8.dev).
+1. **Generate secrets**:
+   ```bash
+   openssl rand -base64 48  # PAYLOAD_SECRET
+   openssl rand -base64 32  # PAYLOAD_WEBHOOK_SECRET
+   ```
+
+2. **Deploy to Dokploy**:
+   - Create Compose app
+   - Point to this repo
+   - Set 4 environment variables
+   - Add 2 domains
+   - Click deploy
+
+3. **Start building**: Visit `https://cms.yourdomain.com/admin`
+
+📖 **[Full Quick Start Guide →](./QUICKSTART.md)**
+
+## 🎯 What You Get
+
+### Visual Editor (Payload CMS)
+- **11 pre-built blocks** - Hero, Features, Testimonials, Pricing, FAQ, CTA, Footer, and more
+- **Drag & drop interface** - Build pages visually without code
+- **Media management** - Upload images with S3-compatible storage
+- **Real-time preview** - See changes as you edit
+- **Role-based access** - Admin, Editor, Author roles
+- **SEO built-in** - Meta titles, descriptions, OG images
+
+### High-Performance Frontend (Next.js 15)
+- **ISR caching** - Lightning-fast page loads
+- **Webhook automation** - Instant updates on publish
+- **Component marketplace ready** - Easy integration with shadcn/ui, magicui, aceternity
+- **Type-safe** - Full TypeScript coverage
+- **Animations preserved** - Framer Motion animations work perfectly
+
+### Production-Ready Stack
+- **PostgreSQL** - Reliable database
+- **MinIO** - S3-compatible object storage
+- **Docker Compose** - Single-file deployment
+- **Health checks** - Automated monitoring
+- **Horizontal scaling** - Add more Next.js instances as needed
+
+## 🏗️ Architecture
+
+Built with [Next.js 15](https://nextjs.org/docs), [Payload CMS](https://payloadcms.com), [React 19](https://react.dev/), [TypeScript](https://www.typescriptlang.org/docs/), [Tailwind CSS](https://tailwindcss.com/), [Framer Motion](https://www.framer.com/motion/), and [Zod](https://zod.dev).
 
 ## Table of Contents
 

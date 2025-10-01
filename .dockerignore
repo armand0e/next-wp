@@ -18,9 +18,12 @@ node_modules
 **/.DS_Store
 **/Thumbs.db
 
-# WordPress dev folders not needed for building Next.js templates
-wordpress/
-wordpress-plugin/
+# Development files
+README*.md
+DEPLOYMENT-GUIDE.md
+*.md
+!package.json
+!tsconfig.json
 
 # Local env files (set envs in Dokploy instead)
 .env

@@ -1,14 +1,13 @@
 # Multi-stage Dockerfile for Payload CMS
 FROM node:20-alpine AS builder
-ENV NODE_ENV=production
 WORKDIR /app
 
 # Copy package files
 COPY cms/payload/package.json ./
 COPY cms/payload/tsconfig.json ./
 
-# Install dependencies
-RUN npm install --no-audit --no-fund
+# Install dependencies (including devDependencies for build)
+RUN npm install
 
 # Copy source code
 COPY cms/payload/src ./src
