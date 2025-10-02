@@ -11,7 +11,7 @@
   "dependencies": {
     "@payloadcms/db-postgres": "^0.8.6",
     "@payloadcms/richtext-lexical": "^0.11.3",
-    "@payloadcms/storage-s3": "^0.2.4",
+    "@payloadcms/plugin-cloud-storage": "^1.0.14",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "payload": "^2.28.0",
